@@ -1,0 +1,74 @@
+server:
+  port: 8080
+
+#MongoDB连接配置
+#mysql数据库
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/chat_memory_db
+  datasource:
+    url: jdbc:mysql://192.168.1.183:3306/guiguxiaozhi?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
+    username: root
+    password: 123
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+langchain4j:
+  open-ai:
+    chat-model:
+      #官网
+#      base-url: https://api.deepseek.com/v1
+#      api-key: sk-64753026abe04929a093f254b574744d
+#      model-name: deepseek-reasoner
+
+      #阿里三方平台百炼平台调用deepseek
+      base-url: https://dashscope.aliyuncs.com/compatible-mode/v1
+      api-key: sk-3a56311165494ee0b5076e73376a44f4
+      model-name: deepseek-r1
+
+      #请求日志和相应日志
+      log-requests: false
+      log-responses: false
+
+  ollama:
+    chat-model:
+      base-url: http://localhost:11434
+      model-name: deepseek-r1:1.5b
+      temperature: 0.8
+      timeout: PT60S
+      log-requests: true
+      log-responses: true
+  community:
+    dashscope:
+      chat-model:
+        api-key: sk-3a56311165494ee0b5076e73376a44f4
+        model-name: qwen-max
+#集成阿里通义千问-通用文本向量-v3
+      embedding-model:
+        api-key: sk-3a56311165494ee0b5076e73376a44f4
+        model-name: text-embedding-v3
+      streaming-chat-model:
+        api-key: sk-3a56311165494ee0b5076e73376a44f4
+        model-name: qwen-plus
+#系统日志为debug
+logging:
+  level:
+    root: debug
+    # 业务包日志
+    com.atguigu.java.ai.langchain4j: DEBUG
+    # MongoDB 日志
+    org.mongodb.driver: DEBUG
+    org.springframework.data.mongodb.core: DEBUG
+    # MySQL 日志
+    org.hibernate.SQL: DEBUG
+    org.mybatis: DEBUG
+    # 第三方库日志
+    sun.rmi: WARN
+    javax.management.remote.rmi: WARN
